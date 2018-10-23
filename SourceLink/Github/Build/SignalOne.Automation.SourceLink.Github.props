@@ -1,0 +1,14 @@
+<Project>
+    <PropertyGroup>
+        <SLGHProjectKey>SignalOne.Automation.SourceLink.Github</SLGHProjectKey>
+        <SLGHMessagePrefix>$(SLGHProjectKey) ::</SLGHMessagePrefix>
+        <SLGHCode>SLGH</SLGHCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration) == 'Release' AND ($(EnableSourceLink) == 'true' OR $(EnableSourceLink) == '')">
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <EmbedUntrackedSources Condition="$(EmbedUntrackedSources) == ''">true</EmbedUntrackedSources>
+        <DebugSymbols Condition="$(DebugSymbols) == ''">true</DebugSymbols>
+        <DebugType Condition="$(DebugType) == '' OR $(DebugType) == 'none'">embedded</DebugType>
+        <EnableSourceLink Condition="$(EnableSourceLink) == ''">true</EnableSourceLink>
+    </PropertyGroup>
+</Project>

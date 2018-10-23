@@ -1,0 +1,17 @@
+<Project>
+    <Target Name="SourceLink" BeforeTargets="BeforeBuild" Condition="$(Configuration) == 'Release' AND $(EnableSourceLink) == 'true'">
+        <Message Text="$(SLGHMessagePrefix) SourceLink Enabled" Importance="high" />
+        <Warning Code="$(SLGHCode)001" Text="Repository Type Is Not Set Correctly" Condition="$(RepositoryType) != 'git'" />
+        <Warning Code="$(SLGHCode)002" Text="Repository Url Is Not Set" Condition="$(RepositoryUrl) == ''" />
+        <Warning Code="$(SLGHCode)003" Text="Repository Url Is Not Secure Github Link" Condition="!$(RepositoryUrl.StartsWith('https://github.com'))" />
+        <Warning Code="$(SLGHCode)004" Text="Project Is Not Packable" Condition="$(IsPackable) != 'true'" />
+
+        <ItemGroup>
+            <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
+        </ItemGroup>
+    </Target>
+    <Target Name="SourceLinkOff" BeforeTargets="BeforeBuild" Condition="$(Configuration) == 'Debug' OR $(EnableSourceLink) == 'false' OR $(EnableSourceLink) == ''">
+        <Message Text="$(SLGHMessagePrefix) SourceLink Disabled (Configuration Not Release)" Importance="high" Condition="$(Configuration) != 'Release'" />
+        <Message Text="$(SLGHMessagePrefix) SourceLink Disabled (Parameter Override)" Importance="high" Condition="$(EnableSourceLink) == 'false'" />
+    </Target>
+</Project>

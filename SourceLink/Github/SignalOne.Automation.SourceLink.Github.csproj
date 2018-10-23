@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="GeneralInformation">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <NuspecFile>SignalOne.Automation.SourceLink.Github.nuspec</NuspecFile>
+  </PropertyGroup>
+</Project>
