@@ -1,25 +1,19 @@
 <Project>
-  <!-- Properties to set/default for when we pass it to the second build -->
-  <PropertyGroup Condition="$(SourcesPackage) == 'true' AND $(PackageSources) == ''">
-    <SRCSVersion Condition="$(SRCSVersion) == '' AND $(Version) == ''">1.0.0</SRCSVersion>
-    <SRCSVersion Condition="$(SRCSVersion) == '' AND $(Version) != ''">$(Version)</SRCSVersion>
-    <SRCSPackageVersion Condition="$(SRCSPackageVersion) == '' AND $(PackageVersion) == ''">$(SRCSVersion)</SRCSPackageVersion>
-    <SRCSPackageVersion Condition="$(SRCSPackageVersion) == '' AND $(PackageVersion) != ''">$(PackageVersion)</SRCSPackageVersion>
-  </PropertyGroup>
-
   <!-- Properties that we need to set when we are creating the sources package -->
   <PropertyGroup Condition="$(PackageSources) == 'true'">
     <Description>Sources package for $(MSBuildProjectName)</Description>
     <PackageId>$(MSBuildProjectName).Sources</PackageId>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <ContentTargetFolders>contentFiles</ContentTargetFolders>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
-    <NoWarn>CS2008;NU5104;NU5123</NoWarn>
+    <NoWarn>CS8021</NoWarn>
     <NoBuild>true</NoBuild>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <EnableSourceLink>false</EnableSourceLink>
-    <SRCSPackagePath Condition="$(SRCSPackagePath) == ''">$(ContentTargetFolders)\cs\$(TargetFramework)\$(PackageId)\</SRCSPackagePath>
+    <SRCSCompilePackagePath Condition="$(SRCSCompilePackagePath) == ''">$(ContentTargetFolders)\cs\$(TargetFramework)\$(PackageId)\</SRCSCompilePackagePath>
+    <SRCSEmbedPackagePath Condition="$(SRCSEmbedPackagePath) == ''">$(ContentTargetFolders)\any\any\$(PackageId)\</SRCSEmbedPackagePath>
   </PropertyGroup>
 
   <!-- Excluded files by default -->

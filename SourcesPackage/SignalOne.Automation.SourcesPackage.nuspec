@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata minClientVersion="2.5">
     <id>SignalOne.Automation.SourcesPackage</id>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <authors>Im5tu</authors>
     <owners>Im5tu</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

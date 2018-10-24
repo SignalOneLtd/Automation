@@ -1,17 +1,25 @@
 <Project>
-  <Target Name="SourcesPackageTrigger" AfterTargets="Pack" Condition="$(SourcesPackage) == 'true' AND $(PackageSources) == ''">
-    <MSBuild Projects="$(MSBuildProjectFile)" Properties="PackageSources=true;Version=$(SRCSVersion);PackageVersion=$(SRCSPackageVersion)" />
+  <!-- Automatically trigger a build after we've finished packaging -->
+  <Target Name="SourcesPackageTrigger" AfterTargets="Build;Pack;AfterBuild" Condition="$(SourcesPackage) == 'true' AND $(PackageSources) == ''">
+    <PropertyGroup>
+      <Version Condition="$(Version) == ''">0.0.1</Version>
+      <PackageVersion Condition="$(PackageVersion) == ''">$(Version)</PackageVersion>
+    </PropertyGroup>
+    <MSBuild Projects="$(MSBuildProjectFile)" Properties="PackageSources=true;Version=$(Version);PackageVersion=$(PackageVersion)" />
   </Target>
+
+  <!-- Ensure that we update the files to be embedded properly -->
   <Target Name="GenerateSourcesPackage" BeforeTargets="BeforeBuild" Condition="$(PackageSources) == 'true'">
     <ItemGroup>
-      <Content Include="@(Compile)" Exclude="@(ExcludeFromSources)">
+      <Compile Remove="@(ExcludeFromSources)" />
+      <Compile Update="@(Compile)">
         <Pack>true</Pack>
-        <PackagePath>$(SRCSPackagePath)</PackagePath>
-        <BuildAction>Compile</BuildAction>
-      </Content>
-      <Compile Remove="@(Compile)" />
-      <EmbeddedResource Remove="@(EmbeddedResource)" />
-      <PackageReference Remove="@(PackageReference)" />
+        <PackagePath>$(SRCSCompilePackagePath)</PackagePath>
+      </Compile>
+      <EmbeddedResource Update="@(EmbeddedResource)">
+        <Pack>true</Pack>
+        <PackagePath>$(SRCSEmbedPackagePath)</PackagePath>
+      </EmbeddedResource>
     </ItemGroup>
   </Target>
 </Project>
