@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata minClientVersion="2.5">
+    <id>SignalOne.Automation.SourcesPackage</id>
+    <version>0.0.1</version>
+    <authors>Im5tu</authors>
+    <owners>Im5tu</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <developmentDependency>true</developmentDependency>
+    <licenseUrl>https://raw.githubusercontent.com/SignalOneLtd/Automation/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/SignalOneLtd/Automation</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/SignalOneLtd/Assets/master/logo-inverse-square.png</iconUrl>
+    <description>Automatic Sources Package Creation</description>
+    <tags>SignalOne Sources SourcePackage</tags>
+    <repository type="git" url="https://github.com/SignalOneLtd/Automation" />
+    <dependencies />
+  </metadata>
+  <files>
+    <file src="build\**" target="buildCrossTargeting" />
+    <file src="build\**" target="build" />
+  </files>
+</package>

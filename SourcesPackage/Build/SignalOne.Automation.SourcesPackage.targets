@@ -1,0 +1,17 @@
+<Project>
+  <Target Name="SourcesPackageTrigger" AfterTargets="Pack" Condition="$(SourcesPackage) == 'true' AND $(PackageSources) == ''">
+    <MSBuild Projects="$(MSBuildProjectFile)" Properties="PackageSources=true;Version=$(SRCSVersion);PackageVersion=$(SRCSPackageVersion)" />
+  </Target>
+  <Target Name="GenerateSourcesPackage" BeforeTargets="BeforeBuild" Condition="$(PackageSources) == 'true'">
+    <ItemGroup>
+      <Content Include="@(Compile)" Exclude="@(ExcludeFromSources)">
+        <Pack>true</Pack>
+        <PackagePath>$(SRCSPackagePath)</PackagePath>
+        <BuildAction>Compile</BuildAction>
+      </Content>
+      <Compile Remove="@(Compile)" />
+      <EmbeddedResource Remove="@(EmbeddedResource)" />
+      <PackageReference Remove="@(PackageReference)" />
+    </ItemGroup>
+  </Target>
+</Project>
